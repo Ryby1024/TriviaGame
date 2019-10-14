@@ -1,4 +1,4 @@
-#quiz   {
+#quiz, #summary, #timer  {
     display: none;
 }
 .choice     {
