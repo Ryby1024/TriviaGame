@@ -1,0 +1,9 @@
+#quiz   {
+    display: none;
+}
+.choice     {
+    background: blue;
+}
+#quiz ul {
+    list-style: none;
+}
