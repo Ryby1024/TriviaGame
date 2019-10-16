@@ -1,41 +1,39 @@
 // Assigning global variables
 let rightAnswers = 0;
 let wrongAnswers = 0;
-let timer = 30;
+let timer = 15;
 let currentQuestion = 0;
-let images = ["assets/images/howard.gif", "assets/images/sheldon.gif",]
-let imagesCount = 0;
 let intervalId;
 let questions = [
     {
          title: "Which character in the Big Bang Theory does NOT have a doctorate?", 
          answers: ["Raj", "Sheldon", "Howard", "Leonard"],
-         correct: 2
+         correct: 2,
     },
     {
          title: "What has Sheldon wanted to do his whole life",
          answers: ["Get Married", "Have a child", "Learn to drive", "Win the Nobel Prize"],
-         correct: 3
+         correct: 3,
     },
     {
          title: "What state is Penny from?",
          answers: ["California", "Florida", "Ohio", "Nebraska"],
-         correct: 3
+         correct: 3,
     },
     {
          title: "Who does Howard end up marrying",
          answers: ["Bernadette", "Amy", "Leslie", "Priya"],
-         correct: 0 
+         correct: 0, 
     },
     {
          title: "What job does Raj have?",
          answers: ["Physicist", "Engineer", "Astrologist", "Biologist"],
-         correct: 2
+         correct: 2,
     },
     {
          title: "What is Sheldon's catch phrase?",
          answers: ["Ohh Yeah!!", "Yeah Baby", "Sweet", "Bazinga"],
-         correct: 3
+         correct: 3,
     },
     {
          title: "What is Penny's dream job?",
@@ -68,9 +66,8 @@ $(document).ready(function(){
           let guess = parseInt($("li.choice").attr("id"));
           checkAnswer(guess)
           console.log(guess)
-     }else {
-          alert("Please select an answer")
      }
+    document.getElementById("restart").onclick = function() {restartGame()};
     
      
    });
@@ -84,7 +81,8 @@ function showQuestion(){
           $("#quiz ul").html("");
      for(var i = 0; i < ques.answers.length; i++){
           $("#quiz ul").append("<li id='"+ i +"'>" + ques.answers[i]+"</li>");
-          timer = 30;
+          timer = 15;
+          console.log(ques.answers)
      }
 }
    
@@ -96,30 +94,50 @@ function checkAnswer(guess){
      } else if(ques.correct !== guess)  {
           $("#quiz ul").html("<img src='assets/images/pennywrong.gif'/>" + "Wrong Answer, the answer was " + questions.correct);
           wrongAnswers++;
-     } else (timer === 0)
-          $("#quiz ul").html("<img src='assets/images/outoftime.gif'/>" + "Sorry, you ran out of time, the answer was " + questions.correct);
-          wrongAnswers++;
-     
+     } 
 
           currentQuestion++;
-          setTimeout(showQuestion, 3000);  
-      
+          stopCounter();
+          setTimeout(showQuestion, 2000);
+          if(currentQuestion >= questions.length){
+               showResults();
+          
+            
+          }   
 }
-function counter(){
+
      
-          var countDown = setInterval(function(){
+          var countDown = setInterval(counter, 1000)
+          function counter(){
               $("#timer").html("Time Remaining: " + timer);
               timer--;
               if (timer < 0) {
                   clearInterval(countDown);
               }
-          }, 1000);
-      }
-
-
+          };
+          function stopCounter(){
+               clearInterval(counter);
+          }
+      
 
 function showResults(){
+     $("#quiz").hide();
+     $("#timer").hide();
+     $("#summary").show();
+     $("#summary p").text("You scored " + rightAnswers + "out of " + questions.length + " correct!");
+     
+}
+
+function restartGame(){
+     $("#startgame").hide();
+     $("#summary").hide();
+     $("#quiz").show();
+     $("#timer").show();
+     currentQuestion = 0;
+     showQuestion();
+     counter();
+     timer = 15;
 
 }
 
-
+     

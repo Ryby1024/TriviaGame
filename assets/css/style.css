@@ -7,3 +7,6 @@
 #quiz ul {
     list-style: none;
 }
+#quiz li {
+    cursor: pointer;
+}
