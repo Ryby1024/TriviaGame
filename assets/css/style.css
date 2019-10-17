@@ -1,12 +1,59 @@
+body{
+    background-image: url("../images/background.png");
+    color: yellow;
+    line-height: 20px;
+    font-family: 'Volkhov', serif;
+    
+ }
+
 #quiz, #summary, #timer  {
     display: none;
+    border: 2px solid  red;
+    text-align: center;
+    margin: 5px;
 }
 .choice     {
-    background: blue;
+    background: white;
+}
+#quiz   {
+    align-content: center;
+    height: auto;
 }
 #quiz ul {
     list-style: none;
+    
 }
 #quiz li {
     cursor: pointer;
+    border: 2px solid red;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    height: 60%;
+    width: 40%;
+    font-size: 20px;
+    font-weight: 300;
+    padding: 15px;
+}
+
+#container  {
+    height: 50%;
+    border: 2px solid  red;
+    text-align: center;
+    margin: 5px;
+    padding: 5px;
+}
+
+#startgame  {
+    background: black;
+    color: white;
+}
+h1{
+    font-size: 40px;
+    font-weight: 500;
+}
+#timer  {
+    height: 20%;
+    font-size: 20px;
+    padding: 15px;
 }

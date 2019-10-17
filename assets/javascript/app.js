@@ -92,7 +92,7 @@ function checkAnswer(guess){
           $("#quiz ul").html("<img src='assets/images/sheldonright.gif'/>" + "Right Answer");  
           rightAnswers++;
      } else if(ques.correct !== guess)  {
-          $("#quiz ul").html("<img src='assets/images/pennywrong.gif'/>" + "Wrong Answer, the answer was " + questions.correct);
+          $("#quiz ul").html("<img src='assets/images/pennywrong.gif'/>" + "Sorry, that answer was wrong.");
           wrongAnswers++;
      } 
 
@@ -111,10 +111,11 @@ function checkAnswer(guess){
           function counter(){
               $("#timer").html("Time Remaining: " + timer);
               timer--;
-              if (timer < 0) {
-                  clearInterval(countDown);
+              } if(timer === 0){
+               $("#quil ul").html("<img src= 'assets/images/outoftime.gif'/>")
+                   showQuestion();
               }
-          };
+          
           function stopCounter(){
                clearInterval(counter);
           }
@@ -124,7 +125,7 @@ function showResults(){
      $("#quiz").hide();
      $("#timer").hide();
      $("#summary").show();
-     $("#summary p").text("You scored " + rightAnswers + "out of " + questions.length + " correct!");
+     $("#summary p").text("You scored " + rightAnswers + " out of " + questions.length + " correct!");
      
 }
 
