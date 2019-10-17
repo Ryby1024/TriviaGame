@@ -19,11 +19,10 @@ body{
     align-content: center;
     height: auto;
 }
-#quiz ul {
-    list-style: none;
+
     
-}
-#quiz li {
+
+ .answer {
     cursor: pointer;
     border: 2px solid red;
     margin-left: auto;
