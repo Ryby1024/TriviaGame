@@ -5,6 +5,8 @@ let timer = 15;
 let currentQuestion = 0;
 let intervalId;
 let guess;
+let gameStart = false;
+let unansweredQuestions = 0;
 let questions = [
      {
           title: "Which character in the Big Bang Theory does NOT have a doctorate?",
@@ -53,6 +55,7 @@ $(document).ready(function () {
 
      $("#startgame").on("click", function () {
           console.log("start game")
+          gameStart = true;
           $("#startgame").hide();
           $("#quiz").show();
           $("#timer").show();
@@ -61,50 +64,59 @@ $(document).ready(function () {
      })
 
      $(".answer").on("click", checkAnswer);
-
-     document.getElementById("#restart").onclick = function () { restartGame() };
-
-
+     showQuestion();
+     stopCounter();
+    
+     $("#restart").on("click", restartGame);
+     stopCounter();
 
 
 
      function showQuestion() {
+          if( gameStart){
 
-
-
+          
+          
           $("#quiz h2").text(questions[currentQuestion].title);
-
-          $(".answerA").text(questions[currentQuestion].answers[0]);
-          $(".answerB").text(questions[currentQuestion].answers[1]);
-          $(".answerC").text(questions[currentQuestion].answers[2]);
-          $(".answerD").text(questions[currentQuestion].answers[3]);
+          
+          $("#quiz .answerA").text(questions[currentQuestion].answers[0]);
+          $("#quiz .answerB").text(questions[currentQuestion].answers[1]);
+          $("#quiz .answerC").text(questions[currentQuestion].answers[2]);
+          $("#quiz .answerD").text(questions[currentQuestion].answers[3]);
           timer = 15;
-          countDown = setInterval(counter, 1000)
-          console.log(questions[currentQuestion].answers)
-
+          countDown = setInterval(counter, 1000);
+          console.log(questions[currentQuestion].answers);
+          }
      }
 
 
      function checkAnswer() {
+          if(gameStart === false){
+               return false;
+          }
           stopCounter();
           console.log("clicked")
           guess = parseInt($(this).attr("value"))
 
           if (guess === questions[currentQuestion].correct) {
-               $("#quiz .box").html("<img src='assets/images/sheldonright.gif'/>" + "Right Answer");
+               // $("#quiz .box").text("<img src='assets/images/sheldonright.gif'/>" + "Right Answer");
                rightAnswers++;
           } else {
-               $("#quiz .box").html("<img src='assets/images/pennywrong.gif'/>" + "Sorry, that answer was wrong.");
+               // $("#quiz .box").text("<img src='assets/images/pennywrong.gif'/>" + "Sorry, that answer was wrong.");
                wrongAnswers++;
           }
 
           currentQuestion++;
           
+         
+          // hideImg();
           setTimeout(showQuestion, 2000);
           if (currentQuestion >= questions.length) {
                showResults();
-
-
+               
+          
+          } else {
+               showQuestion();
           }
      }
 
@@ -115,13 +127,16 @@ $(document).ready(function () {
           $("#timer").html("Time Remaining: " + timer);
           timer--;
           if (timer === 0) {
-               stopCounter()
-               $("#quiz .box").html("<img src= 'assets/images/outoftime.gif'/>")
+               stopCounter();
+               unansweredQuestions++;
+               currentQuestion++;
+               // $("#quiz .box").html("<img src= 'assets/images/outoftime.gif'/>");
                showQuestion();
           }
      }
 
      function stopCounter() {
+          countDown = setInterval(counter, 1000);
           clearInterval(countDown);
      }
 
@@ -131,10 +146,11 @@ $(document).ready(function () {
           $("#timer").hide();
           $("#summary").show();
           $("#summary p").text("You scored " + rightAnswers + " out of " + questions.length + " correct!");
-
+          
      }
 
      function restartGame() {
+          
           $("#startgame").hide();
           $("#summary").hide();
           $("#quiz").show();
@@ -145,5 +161,5 @@ $(document).ready(function () {
           timer = 15;
 
      }
-
+     
 });
