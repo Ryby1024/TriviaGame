@@ -5,7 +5,6 @@ let timer = 15;
 let currentQuestion = 0;
 let intervalId;
 let guess;
-let gameStart = false;
 let unansweredQuestions = 0;
 let questions = [
      {
@@ -73,11 +72,12 @@ $(document).ready(function () {
 
 
      function showQuestion() {
-          if( gameStart){
+          
 
           
-          
+          $("#quiz .answer").empty();
           $("#quiz h2").text(questions[currentQuestion].title);
+          
           
           $("#quiz .answerA").text(questions[currentQuestion].answers[0]);
           $("#quiz .answerB").text(questions[currentQuestion].answers[1]);
@@ -87,22 +87,21 @@ $(document).ready(function () {
           countDown = setInterval(counter, 1000);
           console.log(questions[currentQuestion].answers);
           }
-     }
+     
 
 
      function checkAnswer() {
-          if(gameStart === false){
-               return false;
-          }
+         
           stopCounter();
           console.log("clicked")
           guess = parseInt($(this).attr("value"))
+          let correctAnswer = questions[currentQuestion].correct;
 
           if (guess === questions[currentQuestion].correct) {
                // $("#quiz .box").text("<img src='assets/images/sheldonright.gif'/>" + "Right Answer");
                rightAnswers++;
           } else {
-               // $("#quiz .box").text("<img src='assets/images/pennywrong.gif'/>" + "Sorry, that answer was wrong.");
+               // $("#quiz .box").text( `Sorry, that answer was wrong, the right answer was  ${questions[currentQuestion].answers[correctAnswer]}`);
                wrongAnswers++;
           }
 
