@@ -63,8 +63,6 @@ $(document).ready(function () {
      })
 
      $(".answer").on("click", checkAnswer);
-     showQuestion();
-     stopCounter();
     
      $("#restart").on("click", restartGame);
      stopCounter();
@@ -109,13 +107,13 @@ $(document).ready(function () {
           
          
           // hideImg();
-          setTimeout(showQuestion, 2000);
-          if (currentQuestion >= questions.length) {
+          
+          if (currentQuestion = questions.length) {
                showResults();
                
           
           } else {
-               showQuestion();
+               setTimeout(showQuestion, 2000);
           }
      }
 
