@@ -54,8 +54,9 @@ $(document).ready(function () {
 
      $("#startgame").on("click", function () {
           console.log("start game")
-          gameStart = true;
+          
           $("#startgame").hide();
+
           $("#quiz").show();
           $("#timer").show();
           showQuestion();
@@ -65,7 +66,7 @@ $(document).ready(function () {
      $(".answer").on("click", checkAnswer);
     
      $("#restart").on("click", restartGame);
-     stopCounter();
+    
 
 
 
@@ -73,7 +74,7 @@ $(document).ready(function () {
           
 
           
-          $("#quiz .answer").empty();
+          
           $("#quiz h2").text(questions[currentQuestion].title);
           
           
@@ -81,6 +82,8 @@ $(document).ready(function () {
           $("#quiz .answerB").text(questions[currentQuestion].answers[1]);
           $("#quiz .answerC").text(questions[currentQuestion].answers[2]);
           $("#quiz .answerD").text(questions[currentQuestion].answers[3]);
+          $(".box").show();
+          $("#answer-status").hide();
           timer = 15;
           countDown = setInterval(counter, 1000);
           console.log(questions[currentQuestion].answers);
@@ -95,24 +98,33 @@ $(document).ready(function () {
           guess = parseInt($(this).attr("value"))
           let correctAnswer = questions[currentQuestion].correct;
 
-          if (guess === questions[currentQuestion].correct) {
-               // $("#quiz .box").text("<img src='assets/images/sheldonright.gif'/>" + "Right Answer");
+          if (guess === correctAnswer) {
+
+               
                rightAnswers++;
+               $("#answer-result").text("Correct Answer!!");
+               $("#correct-answer").text("");
+               setImage("sheldonright.gif");
           } else {
-               // $("#quiz .box").text( `Sorry, that answer was wrong, the right answer was  ${questions[currentQuestion].answers[correctAnswer]}`);
                wrongAnswers++;
+               $("#answer-result").text("Sorry, Wrong Answer.")
+               $("#correct-answer").text("Correct answer was : " + questions[currentQuestion].answers[questions[currentQuestion].correct])
+
+               setImage("pennywrong.gif");
           }
 
           currentQuestion++;
           
          
-          // hideImg();
           
-          if (currentQuestion = questions.length) {
-               showResults();
+          
+          if (currentQuestion === questions.length) {
+               $(".box").hide();
+               setTimeout(showResults, 2000);
                
           
           } else {
+               $(".box").hide();
                setTimeout(showQuestion, 2000);
           }
      }
@@ -120,20 +132,28 @@ $(document).ready(function () {
 
 
      function counter() {
-
-          $("#timer").html("Time Remaining: " + timer);
           timer--;
+          $("#timer").html("Time Remaining: " + timer);
+          
           if (timer === 0) {
                stopCounter();
                unansweredQuestions++;
+               $("#answer-result").text("Sorry, Out of Time.")
+               $("#correct-answer").text("Correct answer was : " + questions[currentQuestion].answers[questions[currentQuestion].correct])
+
                currentQuestion++;
-               // $("#quiz .box").html("<img src= 'assets/images/outoftime.gif'/>");
-               showQuestion();
+               setImage("outoftime.gif");
+               if (currentQuestion === questions.length) {
+                    setTimeout(showResults, 2000);
+                    
+               
+               } else {
+                    setTimeout(showQuestion, 2000);
+               }
           }
      }
 
      function stopCounter() {
-          countDown = setInterval(counter, 1000);
           clearInterval(countDown);
      }
 
@@ -142,6 +162,7 @@ $(document).ready(function () {
           $("#quiz").hide();
           $("#timer").hide();
           $("#summary").show();
+          $("#answer-status").hide();
           $("#summary p").text("You scored " + rightAnswers + " out of " + questions.length + " correct!");
           
      }
@@ -156,6 +177,11 @@ $(document).ready(function () {
           showQuestion();
           counter();
           timer = 15;
+
+     }
+     function setImage(imgSrc){
+          $("#gif").attr("src", "assets/images/" + imgSrc);
+          $("#answer-status").show();
 
      }
      

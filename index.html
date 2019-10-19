@@ -1,51 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Trivia Game</title>
-    <script
-  src="https://code.jquery.com/jquery-3.4.1.min.js"
-  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-  crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Trivia Game</title>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="assets/css/style.css">
   <link href="https://fonts.googleapis.com/css?family=Volkhov&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <div id="container">
+  <div id="container">
     <div id="start">
       <header>
-      <h1>Big Bang Theory Quiz</h1>
+        <h1>Big Bang Theory Quiz</h1>
       </header>
-      <button id="startgame">Start Game</button> 
+      <button id="startgame">Start Game</button>
     </div>
   </div>
 
   <div id="timer">Time Remaining</div>
   <div id="quiz">
-  <h2>Question Title</h2>
-  
+    <h2>Question Title</h2>
+
     <div class="box">
       <button class="answerA answer" value=0>Answer</button>
       <button class="answerB answer" value=1>Answer</button>
       <button class="answerC answer" value=2>Answer</button>
       <button class="answerD answer" value=3>Answer</button>
-    </div> 
+    </div>
   </div>
-   <div id="summary">
-     <h2>Your Results</h2>
-     <p>You scored x out of y correct!!</p>
-     <button id="restart">Restart Game</button>
-   </div>
   
+  <div id="answer-status">
+    <img id="gif" src="/">
+    <p id="answer-result"></p>
+    <p id="correct-answer"></p>
+  </div>
   
+  <div id="summary">
+    <h2>Your Results</h2>
+    <p>You scored x out of y correct!!</p>
+    <button id="restart">Restart Game</button>
+  </div>
 
 
 
 
 
 
-    <script src="assets/javascript/app.js"></script>
+
+
+  <script src="assets/javascript/app.js"></script>
 </body>
+
 </html>
